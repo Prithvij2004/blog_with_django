@@ -9,7 +9,7 @@ class Post(models.Model):
     date_published = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     slug = models.SlugField(max_length=200)
-    upvotes = models.IntegerField(default=0)
+    votes = models.IntegerField(default=0)
 
     class Meta:
         ordering = ['-date_published']
