@@ -10,8 +10,12 @@
     </head>
 
     <body>
-        <style>
-            
-        </style>
+        <h1>Template</h1>
+        {% for object in object_list %}
+            <p>{{ object.title }}</p>
+            <p>{{ object.author }}</p>
+            <p>{{ object.content }}</p>
+            <p>{{ object.date_published }}</p>
+        {% endfor %}
     </body>
 </html>
