@@ -3,11 +3,13 @@ from rest_framework.generics import (
     ListAPIView,
     RetrieveAPIView,
     DestroyAPIView,
-    UpdateAPIView
+    UpdateAPIView,
 )
+
 
 from .models import Post
 from .serializers import PostSerializer
+from .permissions import IsOwnerOrReadOnly
 
 
 class PostList(ListAPIView):
@@ -37,6 +39,7 @@ post_detail_view = PostDetail.as_view()
 class PostDelete(DestroyAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 post_delete_view = PostDelete.as_view()
@@ -45,6 +48,8 @@ post_delete_view = PostDelete.as_view()
 class PostUpdate(UpdateAPIView):
     queryset = Post.objects.all()
     serializer_class = PostSerializer
+    permission_classes = [IsOwnerOrReadOnly]
 
 
 post_edit_view = PostUpdate.as_view()
+
