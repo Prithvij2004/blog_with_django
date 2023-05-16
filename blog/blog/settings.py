@@ -48,6 +48,7 @@ INSTALLED_APPS = [
 
     # our=app
     'base',
+    'likes_comments',
 ]
 
 MIDDLEWARE = [
