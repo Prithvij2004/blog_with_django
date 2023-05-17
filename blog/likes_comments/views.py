@@ -2,6 +2,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from rest_framework.permissions import IsAuthenticated
 from rest_framework import generics
+from rest_framework.exceptions import ValidationError
 
 from base.models import Post
 from .models import Like
@@ -16,6 +17,8 @@ class LikeCreateView(LoginRequiredMixin, generics.CreateAPIView):
     def perform_create(self, serializer):
         post_id = self.kwargs.get('post_id')
         post = Post.objects.get(id=post_id)
+        if Like.objects.filter(user=self.request.user, post=post).exists():
+            raise ValidationError("You have already liked this post")
         serializer.save(user=self.request.user, post=post)
 
 
