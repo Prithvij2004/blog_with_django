@@ -1,16 +1,17 @@
 from rest_framework import serializers
 
 from .models import Post
-from likes_comments.models import Like
+from likes_comments.models import Like, Comment
+from likes_comments.serializers import CommentSerializer
 
 
 class PostSerializer(serializers.ModelSerializer):
     likes_count = serializers.SerializerMethodField()
+    comment_count = serializers.SerializerMethodField()
 
     class Meta:
         model = Post
-        fields = ["id", "title", "content", "author", "date_published", "date_updated", "likes_count"]
-        read_only_fields = ['votes']
+        fields = "__all__"
 
     def create(self, validated_data):
         """
@@ -19,5 +20,18 @@ class PostSerializer(serializers.ModelSerializer):
         validated_data['slug'] = validated_data['title']
         return super().create(validated_data)
 
-    def get_likes_count(self, obj):
+    @staticmethod
+    def get_likes_count(obj):
         return Like.objects.filter(post=obj).count()
+
+    @staticmethod
+    def get_comment_count(obj):
+        return Comment.objects.filter(post=obj).count()
+
+
+class PostDetailSerializer(PostSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = Post
+        fields = '__all__'

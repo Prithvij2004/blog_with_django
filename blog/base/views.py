@@ -8,7 +8,7 @@ from rest_framework.generics import (
 
 
 from .models import Post
-from .serializers import PostSerializer
+from .serializers import PostSerializer, PostDetailSerializer
 from .permissions import IsOwnerOrReadOnly
 
 
@@ -30,7 +30,7 @@ post_create_view = PostCreate.as_view()
 
 class PostDetail(RetrieveAPIView):
     queryset = Post.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = PostDetailSerializer
 
 
 post_detail_view = PostDetail.as_view()
@@ -52,4 +52,3 @@ class PostUpdate(UpdateAPIView):
 
 
 post_edit_view = PostUpdate.as_view()
-
