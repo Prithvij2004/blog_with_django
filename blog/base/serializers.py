@@ -4,14 +4,20 @@ from .models import Post
 from likes_comments.models import Like, Comment
 from likes_comments.serializers import CommentSerializer
 
+from taggit.serializers import (
+    TagListSerializerField,
+    TaggitSerializer
+)
 
-class PostSerializer(serializers.ModelSerializer):
+
+class PostSerializer(TaggitSerializer, serializers.ModelSerializer):
     likes_count = serializers.SerializerMethodField()
     comment_count = serializers.SerializerMethodField()
+    tags = TagListSerializerField()
 
     class Meta:
         model = Post
-        fields = "__all__"
+        exclude = ['slug']
 
     def create(self, validated_data):
         """

@@ -52,3 +52,15 @@ class PostUpdate(UpdateAPIView):
 
 
 post_edit_view = PostUpdate.as_view()
+
+
+class PostByTag(ListAPIView):
+    queryset = Post.objects.all()
+    serializer_class = PostSerializer
+
+    def get_queryset(self):
+        tag = self.kwargs.get('tag')
+        return Post.objects.filter(tags__name__in=[tag])
+
+
+post_tag_view = PostByTag.as_view()

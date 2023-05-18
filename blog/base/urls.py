@@ -5,7 +5,8 @@ from .views import (
     post_create_view,
     post_detail_view,
     post_delete_view,
-    post_edit_view
+    post_edit_view,
+    post_tag_view
 )
 
 urlpatterns = [
@@ -14,4 +15,5 @@ urlpatterns = [
     path('<int:pk>/', post_detail_view, name='detail'),
     path('<int:pk>/delete/', post_delete_view, name='delete'),
     path('<int:pk>/edit/', post_edit_view, name='edit'),
+    path('tag/<str:tag>/', post_tag_view, name='tag')
 ]

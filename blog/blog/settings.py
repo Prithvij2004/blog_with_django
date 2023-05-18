@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
 
     # our=app
+    'taggit',
     'likes_comments.apps.LikesCommentsConfig',
     'base.apps.BaseConfig',
 ]
